@@ -244,7 +244,12 @@ fn build_type_derive_map() -> HashMap<FuncSign, DataTypeName> {
         FuncSign::new(E::RoundDigit, vec![T::Decimal, T::Int32]),
         T::Decimal,
     );
-
+    // build bitwise operator
+    build_binary_atm_funcs(
+        &mut map,
+        &[E::PgBitwiseShiftLeft, E::PgBitwiseShiftRight],
+        &[T::Int16, T::Int32, T::Int64],
+    );
     // temporal expressions
     for (base, delta) in [
         (T::Date, T::Int32),
