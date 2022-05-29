@@ -25,6 +25,7 @@ use crate::expr::template::UnaryNullableExpression;
 use crate::expr::BoxedExpression;
 use crate::vector_op::arithmetic_op::{decimal_abs, general_abs, general_neg};
 use crate::vector_op::ascii::ascii;
+use crate::vector_op::bitwise_op::general_bitnot;
 use crate::vector_op::cast::*;
 use crate::vector_op::cmp::{is_false, is_not_false, is_not_true, is_true};
 use crate::vector_op::conjunction;
@@ -34,7 +35,6 @@ use crate::vector_op::ltrim::ltrim;
 use crate::vector_op::rtrim::rtrim;
 use crate::vector_op::trim::trim;
 use crate::vector_op::upper::upper;
-use crate::vector_op::bitwise_op::general_bitnot;
 
 /// This macro helps to create cast expression.
 /// It receives all the combinations of `gen_cast` and generates corresponding match cases
@@ -281,7 +281,7 @@ pub fn new_unary_expr(
             }
         }
         (ProstType::BitwiseNot, _, _) => {
-            gen_unary_impl!{ 
+            gen_unary_impl! {
                 [ "Bitwisenot", child_expr, return_type],
                 { int16, int16, general_bitnot },
                 { int32, int32, general_bitnot },
